@@ -10,18 +10,28 @@ class Solution {
         // }
         // return ct;
         
-        int i=0,j=1;
-        while(i<nums.length-1 && i<j){
-            if(nums[i]==nums[j]){
-                ct++;
+        // int i=0,j=1;
+        // while(i<nums.length-1 && i<j){
+        //     if(nums[i]==nums[j]){
+        //         ct++;
+        //     }
+        //     if(j==nums.length-1){
+        //         i++;
+        //         j=i+1;
+        //     }
+        //     else{
+        //         j++;
+        //     }
+        // }return ct;
+        
+        for(int i=1;i<101;i++){
+            int a=0;
+            for(int j=0;j<nums.length;j++){
+                if(nums[j]==i){
+                    a++;
+                }
             }
-            if(j==nums.length-1){
-                i++;
-                j=i+1;
-            }
-            else{
-                j++;
-            }
+            ct+=a*(a-1)/2;
         }return ct;
     }
 }
