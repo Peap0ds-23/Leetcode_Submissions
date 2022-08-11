@@ -1,18 +1,17 @@
 class Solution {
     public boolean validPalindrome(String s) {
-        int a=0,p=0,q=s.length()-1;
+        int p=0,q=s.length()-1;
+        boolean a=false;
         for(int i=0;i<s.length()/2;i++)
             {
-                if(s.charAt(i)==s.charAt(s.length()-1-i)){
-                    a++;
-                }
-                else{
+                if(s.charAt(i)!=s.charAt(s.length()-1-i)){
                     p=i;
                     q=s.length()-1-i;
+                    a=true;
                     break;
                 }
             } 
-        if(a==s.length()/2){
+        if(!a){
             return true;
         }   
 //         for(int i=0;i<s.length();i++){
@@ -31,26 +30,28 @@ class Solution {
 //             }
 //         }return false;
         String str=s.substring(0,p)+s.substring(p+1,s.length());
-        a=0;
+        a=false;
         for(int i=0;i<str.length()/2;i++)
             {
-                if(str.charAt(i)==str.charAt(str.length()-1-i)){
-                    a++;
+                if(str.charAt(i)!=str.charAt(str.length()-1-i)){
+                    a=true;
+                    break;
                 }
             } 
-        if(a==str.length()/2){
+        if(!a){
             return true;
         }
         
         str=s.substring(0,q)+s.substring(q+1,s.length());
-        a=0;
+        a=false;
         for(int i=0;i<str.length()/2;i++)
             {
-                if(str.charAt(i)==str.charAt(str.length()-1-i)){
-                    a++;
+                if(str.charAt(i)!=str.charAt(str.length()-1-i)){
+                    a=true;
+                    break;
                 }
             } 
-        if(a==str.length()/2){
+        if(!a){
             return true;
         }
         return false;
