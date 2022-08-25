@@ -19,22 +19,8 @@ class Solution {
                     return false;
                 }
             }
-        }return true;
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    }
+        }return true;  
+   }
     
     public void swap(int[] arr,int st,int en){
         while(st<en){
