@@ -15,12 +15,15 @@ public:
         // int len=0;
         vector<int> ans;
         int len=fun2(root,ans);
-        // ans.push_back(len);
-        for(int i=0;i<ans.size();i++){
-            if(ans[i]>1){
-                return false;
-            }
+        if(len==-1){
+            return false;
         }
+        // ans.push_back(len);
+        // for(int i=0;i<ans.size();i++){
+        //     if(ans[i]>1){
+        //         return false;
+        //     }
+        // }
         return true;
     }
 
@@ -28,12 +31,19 @@ public:
         if(!node){
             return 0;
         }
+        // if()
         int left=fun2(node->left,ans);
+        if(left==-1){
+            return -1;
+        }
         int right=fun2(node->right,ans);
+        if(right==-1){
+            return -1;
+        }
         ans.push_back(abs(left-right));
-        // if(abs(left-right)>1){
-        //     return -1;
-        // }
+        if(abs(left-right)>1){
+            return -1;
+        }
         return 1+max(left,right);
     }
 };
