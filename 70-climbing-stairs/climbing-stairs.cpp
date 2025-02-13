@@ -1,16 +1,12 @@
 class Solution {
 public:
-    int dp(int step, int n,vector<int> &arr){
-        if(step==n-1 || step==n){
-            return 1;
-        }
-        if(arr[step]!=-1){
-            return arr[step];
-        }
-        return arr[step]=dp(step+1,n,arr)+dp(step+2,n,arr);
-    }
     int climbStairs(int n) {
-        vector<int> arr(n+1,-1);
-        return dp(0,n,arr);
+        vector<int> dp(n+1,0);
+        dp[0]=dp[1]=1;
+        // dp[2]=2;
+        for(int i=2;i<=n;i++){
+            dp[i]=dp[i-1]+dp[i-2];
+        }
+        return dp[n];
     }
 };
