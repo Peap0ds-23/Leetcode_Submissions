@@ -1,42 +1,22 @@
 class Solution {
 public:
-    int fun(vector<int>& nums,vector<int>& dp,int house,int st){
-        if(house<st){
-            return 0;
+    int fun(vector<int> &dp,vector<int> &nums,int st,int en){
+        dp[st]=nums[st-1];
+        dp[st+1]=max(nums[st],nums[st-1]);
+        for(int i=st+2;i<=en;i++){
+            dp[i]=max(dp[i-2]+nums[i-1],dp[i-1]);
         }
-        // if(house==st+1){
-        //     return nums[house];
-        // }
-        // if(house==st){
-        //     return nums[house];
-        // }
-
-        if(dp[house]!=-1){
-            return dp[house];
-        }
-        int right=INT_MIN;
-        // if(house>0){
-            right=fun(nums,dp,house-1,st);
-        // }
-        int left=INT_MIN;
-        // if(house>1){
-            left=fun(nums,dp,house-2,st)+nums[house];
-        // }
-        return dp[house]=max(left,right);
+        return dp[en];
     }
     int rob(vector<int>& nums) {
         int n=nums.size();
-        vector<int> dp(n,-1);
         if(n==1){
             return nums[0];
-        }else if(n==2){
+        }
+        if(n==2){
             return max(nums[0],nums[1]);
         }
-        int case1=fun(nums,dp,n-1,1);
-        for(int i=0;i<n;i++){
-            dp[i]=-1;
-        }
-        int case2=fun(nums,dp,n-2,0);
-        return max(case1,case2);
+        vector<int> dp(n+1,0);
+        return max(fun(dp,nums,2,n),fun(dp,nums,1,n-1));
     }
 };
