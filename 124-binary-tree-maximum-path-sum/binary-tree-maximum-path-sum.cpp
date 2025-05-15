@@ -12,28 +12,32 @@
 class Solution {
 public:
     int maxPathSum(TreeNode* root) {
-        int maxx=INT_MIN;
-        int len=fun(root,maxx);
-        // if(maxx<0){
-        //     return 0;
-        // }
-        return maxx;
-
+        int ans=INT_MIN;
+        if(!(root->left) && !(root->right)){
+            // if((root->val)>0){
+                return root->val;
+            // }return 0;
+        }
+        int val=fun(root,ans);
+        return ans;
     }
 
-    int fun(TreeNode* node,int & maxx){
-        if(!node){
+    int fun(TreeNode* root,int &ans){
+        if(!root){
             return 0;
         }
-        int left=fun(node->left,maxx);
-        int right=fun(node->right,maxx);
-        int sum=node->val+left+right;
-        int maximum=max(right+node->val,left+node->val);
-        maximum=max(maximum,node->val);
-        maximum=max(maximum,sum);
-        
-        maxx=max(maxx,maximum);
-        return (node->val)+max(max(left,right),0);
+        // if(!(root->left) && !(root->right)){
+        //     if((root->val)>0){
+        //         return root->val;
+        //     }return 0;
+        // }
+        int left=fun(root->left,ans);
+        int right=fun(root->right,ans);
+        // int ans=root->val;
+        ans=max(ans,root->val);
+        ans=max(ans,root->val+left);
+        ans=max(ans,root->val+right);
+        ans=max(ans,root->val+right+left);
+        return max(0,max(root->val,root->val+max(left,right)));
     }
 };
-// [2,-1]
