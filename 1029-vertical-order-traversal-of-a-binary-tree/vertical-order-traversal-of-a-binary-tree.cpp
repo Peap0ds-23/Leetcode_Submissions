@@ -13,29 +13,34 @@ class Solution {
 public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
         map<int,map<int,vector<int>>> m;
-        fun(m,root,0,0);
+        fun(root,0,0,m);
         vector<vector<int>> ans;
-        for(auto i:m){
-            vector<int> temp;
-            for(auto j:i.second){
-                // if(j.second.size()==1){
-                    sort(j.second.begin(),j.second.end());
-                    temp.insert(temp.end(),j.second.begin(),j.second.end());
-                // }
+        vector<int> temp;
+        for(auto &col:m){
+            temp.clear();
+            for(auto &row:col.second){
+                sort(row.second.begin(),row.second.end());
+                for(auto &it:row.second){
+                    temp.push_back(it);
+                }
             }
             ans.push_back(temp);
         }return ans;
     }
-    void fun(map<int,map<int,vector<int>>> &m,TreeNode* curr,int r,int c){
-        if(!curr){
+
+    void fun(TreeNode* root,int r,int c,map<int,map<int,vector<int>>> &m){
+        if(!root){
             return;
         }
-        m[c][r].push_back(curr->val);
-        if(curr->left){
-            fun(m,curr->left,r+1,c-1);
+
+        m[c][r].push_back(root->val);
+        if(root->left){
+            fun(root->left,r+1,c-1,m);
         }
-        if(curr->right){
-            fun(m,curr->right,r+1,c+1);
+        if(root->right){
+            fun(root->right,r+1,c+1,m);
         }
+
     }
+
 };
