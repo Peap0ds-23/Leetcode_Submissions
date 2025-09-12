@@ -12,38 +12,30 @@
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
-        // int len=0;
-        vector<int> ans;
-        int len=fun2(root,ans);
-        if(len==-1){
+        int ans=fun(root);
+        if(ans==-1){
             return false;
-        }
-        // ans.push_back(len);
-        // for(int i=0;i<ans.size();i++){
-        //     if(ans[i]>1){
-        //         return false;
-        //     }
-        // }
-        return true;
+        }return true;
     }
 
-    int fun2(TreeNode* node,vector<int> & ans){
-        if(!node){
+    int fun(TreeNode* root){
+
+        if(!root){
             return 0;
         }
-        // if()
-        int left=fun2(node->left,ans);
-        if(left==-1){
+        // if(!(root->left) && !(root->right)){
+        //     return 1;
+        // }
+        int left=fun(root->left);
+        int right=fun(root->right);
+        if(left==-1 || right ==-1){
             return -1;
         }
-        int right=fun2(node->right,ans);
-        if(right==-1){
+        if(abs(left-right)<=1){
+            return 1+max(left,right);
+        }else{
             return -1;
         }
-        ans.push_back(abs(left-right));
-        if(abs(left-right)>1){
-            return -1;
-        }
-        return 1+max(left,right);
+        
     }
 };
