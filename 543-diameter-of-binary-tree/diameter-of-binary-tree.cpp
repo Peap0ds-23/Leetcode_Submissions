@@ -21,9 +21,9 @@ public:
         if(!root){
             return 0;
         }
-        if(!(root->left) && !(root->right)){
-            return 1;
-        }
+        // if(!(root->left) && !(root->right)){
+        //     return 1;
+        // }
         int left=fun(root->left,ans);
         int right=fun(root->right,ans);
         ans=max(ans,left+right);
