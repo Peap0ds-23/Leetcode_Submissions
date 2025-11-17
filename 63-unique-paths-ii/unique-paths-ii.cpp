@@ -1,34 +1,36 @@
 class Solution {
 public:
-    int fun(vector<vector<int>>& obstacleGrid,vector<vector<int>>& dp,int i,int j,int m,int n){
-        if(i==m || j==n){
+    int fun(vector<vector<int>>& arr,vector<vector<int>> &dp,int row,int col, int m,int n){
+        if(row<0 || row>=m || col>=n || col<0){
             return 0;
         }
-        if(i==m-1 && j==n-1){
-            if(obstacleGrid[i][j]){
-                return 0;
-            }
-            return 1;
+        if(arr[row][col]==1){
+            return dp[row][col]=0;
         }
-        if(obstacleGrid[i][j]==1){
-            return 0;
+        if(dp[row][col]!=-1){
+            return dp[row][col];
         }
-        if(dp[i][j]!=-1){
-            return dp[i][j];
+        if(row==m-1 && col==n-1){
+            return dp[row][col]=1;
         }
+        
         int count=0;
-        if(i<m-1){
-            count+=fun(obstacleGrid,dp,i+1,j,m,n);
+        if(row+1<m){
+            count+=fun(arr,dp,row+1,col,m,n);
         }
-        if(j<n-1){
-            count+=fun(obstacleGrid,dp,i,j+1,m,n);
+        if(col+1<n){
+            count+=fun(arr,dp,row,col+1,m,n);
         }
-        return dp[i][j]=count;
+        return dp[row][col]=count;
     }
-    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
-        int m=obstacleGrid.size();
-        int n=obstacleGrid[0].size();
-        vector<vector<int>> dp(m,vector<int>(n,-1));
-        return fun(obstacleGrid,dp,0,0,m,n);
+    int uniquePathsWithObstacles(vector<vector<int>>& arr) {
+        int m=arr.size(),n=arr[0].size();
+        if(arr[m-1][n-1]==1 || arr[0][0]==1){
+            return 0;
+        }
+        vector<vector<int>> dp(m+1,vector<int>(n+1,-1));
+
+        return fun(arr,dp,0,0,m,n);
+
     }
 };
