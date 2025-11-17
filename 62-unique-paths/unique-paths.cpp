@@ -1,26 +1,26 @@
 class Solution {
 public:
-// static vector<vector<int>> temp()
-    int fun(vector<vector<int>> &arr,int nodei,int nodej, int m,int n){
-        if(nodei==m || nodej==n){
+    int fun(vector<vector<int>> &dp, int row,int col, int m,int n){
+        if(row<0 || row>=m || col>=n || col<0){
             return 0;
         }
-        if(nodei==m-1){
-            return 1;
+        if(row==m-1 || col==n-1){
+            return dp[row][col]=1;
         }
-        if(nodej==n-1){
-            return 1;
-        }
-        if(arr[nodei][nodej]!=-1){
-            return arr[nodei][nodej];
+        if(dp[row][col]!=-1){
+            return dp[row][col];
         }
         int count=0;
-        count+=fun(arr,nodei+1,nodej,m,n);
-        count+=fun(arr,nodei,nodej+1,m,n);
-        return arr[nodei][nodej]=count;
+        if(row+1<m){
+            count+=fun(dp,row+1,col,m,n);
+        }
+        if(col+1<n){
+            count+=fun(dp,row,col+1,m,n);
+        }
+        return dp[row][col]=count;
     }
     int uniquePaths(int m, int n) {
-        vector<vector<int>> arr(m,vector<int>(n,-1));
-        return fun(arr,0,0,m,n);
+        vector<vector<int>> dp(m+1,vector<int>(n+1,-1));
+        return fun(dp,0,0,m,n);
     }
 };
