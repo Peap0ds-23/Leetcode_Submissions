@@ -11,19 +11,42 @@
  */
 class Solution {
 public:
-    TreeNode* deleteNode(TreeNode* root, int key) {
-        if(root) 
-            if(key < root->val) root->left = deleteNode(root->left, key);
-            else if(key > root->val) root->right = deleteNode(root->right, key);       
-            else{
-                if(!root->left && !root->right) return NULL;          
-                if (!root->left || !root->right)
-                    return root->left ? root->left : root->right; 
-                TreeNode* temp = root->left; 
-                while(temp->right != NULL) temp = temp->right; 
-                root->val = temp->val;                     
-                root->left = deleteNode(root->left, temp->val);
+    TreeNode* deleteNode(TreeNode* curr, int key) {
+        // TreeNode* curr=root;
+        if(curr){
+            if((curr->val)>key){
+                curr->left=deleteNode(curr->left,key);
+            }else if((curr->val)<key){
+                curr->right=deleteNode(curr->right,key);
+            }else{
+                if(!curr->left && !curr->right){
+                    delete curr;
+                    return NULL;
+                    // break;
+                }else if(!curr->left || !curr->right){
+                    if(!curr->left){
+                        // return curr->right;
+                        TreeNode* temp=curr->right;
+                        delete curr;
+                        return temp;
+                    }
+                    if(!curr->right){
+                        // return curr->left;
+                        TreeNode* temp=curr->left;
+                        delete curr;
+                        return temp;
+                    }
+                }else{
+                    TreeNode* prev=curr->left;
+                    while(prev->right){
+                        prev=prev->right;
+                    }
+                    curr->val=prev->val;
+                    curr->left=deleteNode(curr->left,curr->val);
+                }
+                
             }
-        return root;
-    }   
+        }
+        return curr;
+    }
 };
