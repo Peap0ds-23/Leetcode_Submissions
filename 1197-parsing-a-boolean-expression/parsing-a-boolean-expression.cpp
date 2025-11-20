@@ -7,7 +7,7 @@ public:
                 continue;
             }else if(it=='t' || it=='f' || it=='&' || it=='|' || it=='!'){
                 st.push(it);
-            }else if(it==')'){
+            }else{
                 bool hasTrue=false,hasFalse=false;
                 while(!st.empty() && st.top()!='&' && st.top()!='|' && st.top()!='!'){
                     if(st.top()=='t'){
