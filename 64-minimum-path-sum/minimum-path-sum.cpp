@@ -1,30 +1,28 @@
 class Solution {
 public:
-    int fun(vector<vector<int>>& grid,vector<vector<int>>& dp, int i,int j,int m, int n){
-        if(i==m || j==n){
+    int fun(vector<vector<int>>& grid,vector<vector<int>> &dp,int row,int col, int m,int n){
+        if(row<0 || row>=m || col>=n || col<0){
             return 0;
         }
-        if(dp[i][j]!=-1){
-            return dp[i][j];
+        if(dp[row][col]!=-1){
+            return dp[row][col];
         }
-        int sum=grid[i][j];
-        if(i==m-1 && j==n-1){
-            return grid[i][j];
+        if(row==m-1 && col==n-1){
+            return dp[row][col]=grid[row][col];
         }
-        int case1=INT_MAX;
-        int case2=INT_MAX;
-        if(i<m-1){
-            case1=fun(grid,dp,i+1,j,m,n);
+        int count=grid[row][col];
+        int r=INT_MAX,c=INT_MAX;
+        if(row+1<m){
+            r=fun(grid,dp,row+1,col,m,n);
         }
-        if(j<n-1){
-            case2=fun(grid,dp,i,j+1,m,n);
+        if(col+1<n){
+            c=fun(grid,dp,row,col+1,m,n);
         }
-        return dp[i][j]=sum+min(case1,case2);
+        return dp[row][col]=count+min(r,c);
     }
     int minPathSum(vector<vector<int>>& grid) {
-        int m=grid.size();
-        int n=grid[0].size();
-        vector<vector<int>> dp(m,vector<int>(n,-1));
+        int m=grid.size(),n=grid[0].size();
+        vector<vector<int>> dp(m+1,vector<int>(n+1,-1));
         return fun(grid,dp,0,0,m,n);
     }
 };
