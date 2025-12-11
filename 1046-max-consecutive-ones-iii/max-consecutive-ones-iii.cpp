@@ -16,7 +16,7 @@ public:
                 }
                 i++;
             }
-            mx=max(mx,one+zero);
+            mx=max(mx,j-i+1);
             j++;
         }
         return mx;
