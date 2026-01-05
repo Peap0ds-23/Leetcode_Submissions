@@ -13,7 +13,7 @@ public:
                 }
             }
         }
-        if(neg%2==0){
+        if(!(neg&1)){
             return sum;
         }else{
             return sum-2*minn;
