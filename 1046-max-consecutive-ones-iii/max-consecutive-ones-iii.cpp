@@ -5,15 +5,17 @@ public:
         while(j<n){
             if(nums[j]==0){
                 zero++;
-            }else{
-                one++;
             }
+            // else{
+            //     one++;
+            // }
             while(zero>k){
                 if(nums[i]==0){
                     zero--;
-                }else{
-                    one--;
                 }
+                // else{
+                //     one--;
+                // }
                 i++;
             }
             mx=max(mx,j-i+1);
