@@ -1,34 +1,27 @@
 class Solution {
 public:
     int jump(vector<int>& nums) {
-        int minn=0;
-        int minnn=0;
-        int maxx=0;
-        int maxxx=0;
         int n=nums.size();
         if(n==1){
             return 0;
         }
-        int i=0;
-        int jump=0;
-        while(i<n){
+        int st=0,en=0,jump=0,maxx=0;
+        while(en<n){
             jump++;
-            // minn=i+1;
-            // maxx=i+nums[i];
-            for(int j=minn;j<=maxx;j++){
-                minnn=maxx+1;
-                maxxx=max(maxxx,j+nums[j]);
+            for(int i=st;i<=en;i++){
+                maxx=max(maxx,i+nums[i]);
+                if(maxx>=n-1){
+                    return jump;
+                }
             }
-            if(n-1>=minnn && n-1<=maxxx){
-                return jump;
-            }
-            i=maxxx+1;
-            maxx=maxxx;
-            minn=minnn;
+            st=en+1;
+            en=maxx;
 
-        }return jump;
-        // for(int i=0;i<n-1;i++){
-
-        // }
+        }
+        return jump;
+        
+        
+        // st=en+1;
+        // en=pre_maxx;
     }
 };
